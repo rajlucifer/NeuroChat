@@ -5,14 +5,14 @@ import { RightSideBar } from '../components/RightSideBar'
 import { useState } from 'react'
 
 export const HomePage = () => {
-    const [selectedUser,SetSelectedUser] = useState(false);
+    const [selectedUser,setSelectedUser] = useState(false);
     return (
         <div className='text-white w-full h-screen sm:px-[15%] sm:py-[5%]  '>
             <div className={`border-2 border-white backdrop-blur-xl rounded-xl overflow-hidden h-[100%] grid grid-cols-1 relative
                   ${selectedUser ? "md:grid-cols-[1fr_1.5fr_1fr] xl:grid-cols-[1fr_2fr_1fr]":"md:grid-cols-2"}`}>
-                <SideBar selectedUser={selectedUser} SetSelectedUser={SetSelectedUser} /> {/*yeah 1 column me gaya hai  */}
-                <ChatContainer selectedUser={selectedUser} SetSelectedUser={SetSelectedUser} />{/*yeah 2 column me gaya hai  */}
-                <RightSideBar selectedUser={selectedUser} SetSelectedUser={SetSelectedUser} />{/*yeah 1 column me gaya hai   that's why look like this*/}
+                <SideBar selectedUser={selectedUser} setSelectedUser={setSelectedUser} /> {/*yeah 1 column me gaya hai  */}
+                <ChatContainer selectedUser={selectedUser} setSelectedUser={setSelectedUser} />{/*yeah 2 column me gaya hai  */}
+                <RightSideBar selectedUser={selectedUser} setSelectedUser={setSelectedUser} />{/*yeah 1 column me gaya hai   that's why look like this*/}
                  
             </div>
         </div>
