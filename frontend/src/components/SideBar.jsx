@@ -3,7 +3,7 @@ import assets from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
 import { userDummyData } from '../assets/assets'
 
-export const SideBar = ({ selectedUser, SetSelectedUser }) => {
+export const SideBar = ({ selectedUser, setSelectedUser }) => {
     const navigate = useNavigate();
     return (
         // here we use the bg-color/10 here 10 is for the transperency 
@@ -31,7 +31,7 @@ export const SideBar = ({ selectedUser, SetSelectedUser }) => {
                 </div>
                 <div className='flex flex-col '>
                     {userDummyData.map((user,index)=>(
-                        <div key={index} onClick={()=>(SetSelectedUser(user))} className={`relative flex items-center gap-2 p-2  pl-4 rounded-md cursor-pointer  max-sm:text-sm 
+                        <div key={index} onClick={()=>(setSelectedUser(user))} className={`relative flex items-center gap-2 p-2  pl-4 rounded-md cursor-pointer  max-sm:text-sm 
                             ${selectedUser?._id === user._id && 'bg-[#282142]/50' }`}>
                             <img src={user?.profilePic || assets.avatar_icon} alt="user" className='w-[35px] aspect-[1/1] rounded-full' ></img>
                             {/**/}
