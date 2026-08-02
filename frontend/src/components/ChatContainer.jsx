@@ -3,7 +3,7 @@ import assets, { messagesDummyData } from '../assets/assets'
 import { useEffect,useRef } from 'react';
 import { formatDate } from '../lib/utils';
 
-export const ChatContainer = ({ selectedUser, SetSelectedUser }) => {
+export const ChatContainer = ({ selectedUser, setSelectedUser }) => {
 
   const scrollEnd = useRef();
   useEffect(()=>{
