@@ -3,6 +3,7 @@ import "dotenv/config"
 import cors from "cors";
 import http from "http";
 import connectDB from "./src/lib/db.js";
+import dns from "dns";
 
 
 const PORT = process.env.PORT || 5000;
@@ -21,6 +22,11 @@ app.use("/api/status",(req,res)=>
     res.send("server is live")
     
 );
+
+
+// correct the dns so that mongodb connect properly
+
+dns.setServers(['8.8.8.8','1.1.1.1']);
 
 //connect to db
 await connectDB();
