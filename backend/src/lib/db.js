@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 
 
 // function to connect the mongodb
@@ -9,7 +9,7 @@ const connectDB = async()=>{
         mongoose.connection.on("connected",()=>{
             console.log("Database connected successfully")
         })
-        await mongoose.connect(`${process.env.MONGO_URI}/chat-app`)
+        await mongoose.connect(`${process.env.MONGO_URI}`)
         // console.log("Database connected Successfully")
 
     }
