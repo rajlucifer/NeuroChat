@@ -4,6 +4,8 @@ import cors from "cors";
 import http from "http";
 import connectDB from "./src/lib/db.js";
 import dns from "dns";
+import userRouter from "./src/routes/userRoutes.js";
+import messageRouter from "./src/routes/messageRoutes.js";
 
 
 const PORT = process.env.PORT || 5000;
@@ -22,6 +24,9 @@ app.use("/api/status",(req,res)=>
     res.send("server is live")
     
 );
+app.use("/api/auth",userRouter);
+app.use("/api/message",messageRouter);
+ 
 
 
 // correct the dns so that mongodb connect properly
