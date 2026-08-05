@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
-import UserModel from "../models/Users";
-import { generateToken } from "../lib/utils";
-import userModel from "../../../../backend-by-sheryians/adv-auth/src/models/user.model";
+import UserModel from "../models/Users.js";
+import { generateToken } from "../lib/utils.js";
+import cloudinary from "../lib/cloudinary.js";
 
 //sign up new user
 
@@ -97,5 +97,44 @@ export const login = async(req,res)=>{
         })
 
     }
+
+};
+
+
+
+//controller to update user profile
+
+export const updateProfile = async(req,res)=>{
+    try{
+        const{fullName,bio,profilePic} = req.body
+        const userId = req.user._id;
+        let updatedUser;
+
+        if(!profilePic){
+            //find by an id and then update it
+            updatedUser = await UserModel.findByIdAndUpdate(userId,{fullName,bio},{new:true});
+        }
+        else{
+            const upload =  await cloudinary.uploader.upload(profilePic);
+            updatedUser = await UserModel.findByIdAndUpdate(userId,{profilePic:upload.secure_url,bio,fullName},{new:true});
+
+
+
+        }
+        res.json({
+            success:true,
+            message:"Profile update Successfully"
+        })
+
+    }
+    catch(error){
+        console.log(error.message);
+        res.json({
+            success:false,
+            message:error.message
+        })
+
+    }
+
 
 }
