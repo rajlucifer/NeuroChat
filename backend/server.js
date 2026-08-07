@@ -6,12 +6,52 @@ import connectDB from "./src/lib/db.js";
 import dns from "dns";
 import userRouter from "./src/routes/userRoutes.js";
 import messageRouter from "./src/routes/messageRoutes.js";
+import { Server } from "socket.io";
 
 
 const PORT = process.env.PORT || 5000;
 // create express app and http  we crate http because socket.io i support the http 
 const app = express();
 const server = http.createServer(app);
+
+
+
+//initalized the socket.io server
+
+export const io = new Server(server,{
+    // to allow all the address
+    cors:{origin:"*"}
+
+})
+
+// store all online users here
+
+export  const userSocketMap = {};  // {userId:socketId}
+
+
+// socket io connection handler
+
+io.on("connection",(socket)=>{
+    const userId = socket.handshake.query.userId;
+    console.log("User Connected",userId);
+
+    if(userId){
+        // making the key value pair in this object
+        userSocketMap[userId] = socket.id;
+    }
+
+    // emit online  user all connected clients
+    io.emit("getOnlineUser",Object.keys(userSocketMap));
+
+    socket.on("Disconnected",()=>{
+        console.log("User Disconnected",userId);
+        delete userSocketMap[userId];
+        io.emit("getOnlineUser",Object.keys(userSocketMap));
+    })
+
+
+})
+
 
 
 //middleware 
