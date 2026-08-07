@@ -1,5 +1,7 @@
 import MessageModel from "../models/message.js";
 import UserModel from "../models/Users.js";
+import cloudinary from "../lib/cloudinary.js";
+import {io,userSocketMap} from "../../server.js"
 
 
 // get all user except logged in user
@@ -104,6 +106,26 @@ export const sendMessage = async(req,res)=>{
         const receiverId =  req.params.id;
         // we get the sendId which is we get from the protected routes
         const senderId = req.user._id;
+        let imageUrl;
+        if(image){
+            const uploadResponse = await cloudinary.uploader.upload(image);
+            imageUrl = uploadResponse.secure_url;
+
+
+        }
+        const newMessage = await MessageModel.create({
+            senderId,
+            receiverId,
+            image:imageUrl,
+            text
+
+
+        })
+        res.json({
+            success:true,
+            message:newMessage
+        })
+
 
 
     }
